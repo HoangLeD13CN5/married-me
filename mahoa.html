@@ -28,13 +28,101 @@
         const header = lines[0].trim();
         const dataLines = lines.slice(1);
 
-        const newLines = [header + ",Base64"];
+        const newLines = [header + ",link web khi mời,Lời mời"];
 
         for (let line of dataLines) {
-          const name = line.trim();
+          const list = line.split(',');
+          const name = list[0].trim();
           if (name) {
-            const encoded = encodeUnicodeToBase64(name);
-            newLines.push(`${name},${encoded}`);
+            var encoded = '';
+            var loimoi = '';
+            var xungho = '';
+            var vaive = '';
+            const relate = list[1].trim();
+            if(relate === '' || relate === null) {
+                encoded = 'Bạn ' + name;
+                vaive = 'bạn';
+                xungho = 'mình';
+                loimoi = `
+                    Hello bạn iu 🥰
+
+                    Tụi mình có một tin vui muốn chia sẻ – bọn mình sắp về chung một nhà rồi nè ❤️
+
+                    Tụi mình rất mong bạn sẽ đến chung vui trong ngày trọng đại này:
+
+                    💒 HÔN LỄ:
+                    📅 Thời gian: 17h30, ngày 07/05/2025  
+                    📍 Địa điểm: NO 51 - LK 16 - Dọc Bún 2 - La Khê - Hà Đông - Hà Nội
+
+                    Sự có mặt của bạn là niềm hạnh phúc và vinh hạnh lớn của tụi mình!  
+                    Mong được gặp bạn tại buổi tiệc nhé! 💐
+
+                    👉 Thiệp cưới mình gửi bạn tại: `;
+            }else if(relate === '1') {
+                encoded = 'Anh ' + name;
+                vaive = 'anh';
+                xungho = 'em';
+                loimoi = `
+                    Em chào anh,
+
+                    Em xin phép được gửi đến anh lời mời dự lễ cưới của vợ chồng em, được tổ chức vào thời gian sắp tới.  
+                    Rất mong anh dành chút thời gian đến chung vui và chúc phúc cho vợ chồng em trong ngày trọng đại này.
+
+                    💒 HÔN LỄ:  
+                    📅 Thời gian: 17h30, ngày 07/05/2025  
+                    📍 Địa điểm: NO 51 - LK 16 - Dọc Bún 2 - La Khê - Hà Đông - Hà Nội
+
+                    Thiệp mời em xin gửi kèm bên dưới.  
+                    Sự hiện diện của anh là niềm vinh hạnh lớn đối với vợ chồng em.
+
+                    👉 Thiệp cưới của em: `;
+
+            }else if(relate === '2') {
+                encoded = 'Em ' + name;
+                xungho = 'anh';
+                vaive = 'em';
+                loimoi = `
+                    Chào em,
+
+                    Anh có một tin vui muốn chia sẻ: Anh sẽ tổ chức lễ cưới vào thời gian sắp tới.  
+                    Rất mong em sẽ dành chút thời gian đến chung vui và chúc phúc cho vợ chồng anh trong ngày trọng đại này.
+
+                    💒 HÔN LỄ:  
+                    📅 Thời gian: 17h30, ngày 07/05/2025  
+                    📍 Địa điểm: NO 51 - LK 16 - Dọc Bún 2 - La Khê - Hà Đông - Hà Nội
+
+                    Anh gửi kèm thiệp mời online bên dưới.  
+                    Rất hy vọng sẽ nhận được sự hiện diện của em trong buổi tiệc hôm đó.  
+
+                    Thiệp mời của em anh gửi tại: `;
+            }else if(relate === '3') {
+                encoded = 'Chị ' + name;
+                xungho = 'em';
+                vaive = 'chị';
+                loimoi = `
+                    Em chào chị,
+
+                    Em xin phép được gửi đến chị lời mời dự lễ cưới của vợ chồng em, được tổ chức vào thời gian sắp tới.  
+                    Rất mong chị dành chút thời gian đến chung vui và chúc phúc cho vợ chồng em trong ngày trọng đại này.
+
+                    💒 HÔN LỄ:  
+                    📅 Thời gian: 17h30, ngày 07/05/2025  
+                    📍 Địa điểm: NO 51 - LK 16 - Dọc Bún 2 - La Khê - Hà Đông - Hà Nội
+
+                    Thiệp mời em xin gửi kèm bên dưới.  
+                    Sự hiện diện của chị là niềm vinh hạnh lớn đối với vợ chồng em.
+
+                    👉 Thiệp cưới của em: `;
+            }
+            const isMarried = list[2].trim();
+            if(isMarried === '' || isMarried === null) {
+                encoded = encoded + ' và người thương';
+            }else {
+                encoded = encoded + ' và gia đình';
+            }
+            const linkAC = `https://hoangled13cn5.github.io/married-me?name=${encodeUnicodeToBase64(encoded)}&time=${encodeUnicodeToBase64('17h30')}&date=${encodeUnicodeToBase64('Thứ 5, ngày 7/5/2025')}&xungho=${encodeUnicodeToBase64('xungho')}&vaive=${encodeUnicodeToBase64('vaive')}`
+            const loimoidaydu = `${loimoi}${linkAC}`;
+            newLines.push(`${name},${relate},${isMarried},${linkAC},${loimoidaydu}`); 
           }
         }
 

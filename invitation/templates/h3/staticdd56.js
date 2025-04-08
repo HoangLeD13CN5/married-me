@@ -105,7 +105,7 @@ var renderCanvas2 = function() {
 		canvasTxt0.align = 'center';
 		canvasTxt0.lineHeight = 55;
 		let canvasTxt0Width = canvas.width-500;
-		canvasTxt0.drawText(ctx, 'Đến dự buổi tiệc chung vui cùng gia đình chúng tôi tại', canvas.width/2 - canvasTxt0Width/2, 880, canvasTxt0Width, 200);
+		canvasTxt0.drawText(ctx, 'Đến dự buổi tiệc chung vui cùng gia đình ' + invitationInfo.xungho + ' tại', canvas.width/2 - canvasTxt0Width/2, 880, canvasTxt0Width, 200);
 		ctx.save();
 		
 		// if(invitationInfo.venue_name.trim() !== '') {
@@ -168,7 +168,7 @@ var renderCanvas2 = function() {
 		canvasTxt1.align = 'center';
 		canvasTxt1.lineHeight = 60;
 		canvasTxt0Width = canvas.width-600;
-		canvasTxt1.drawText(ctx, 'Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng tôi!', canvas.width/2 - canvasTxt0Width/2 + 20, 1550, canvasTxt0Width, 200);
+		canvasTxt1.drawText(ctx, 'Sự hiện diện của '+ invitationInfo.vaive + ' là niềm vinh hạnh cho gia đình ' + invitationInfo.xungho + '!', canvas.width/2 - canvasTxt0Width/2 + 20, 1550, canvasTxt0Width, 200);
 		ctx.save();
 	};
 }

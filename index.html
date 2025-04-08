@@ -150,7 +150,7 @@ function decodeBase64ToUnicode(base64) {
 
 const text = "Xin chào thế giới!";
 const encoded = encodeUnicodeToBase64(text);
-const decoded = decodeBase64ToUnicode(encoded);
+const decoded = decodeBase64ToUnicode('QmHMo24gVHXDosyBbiBIYcyJaSB2YcyAIG5nxrDGocyAaSB0aMawxqFuZw==');
 
 console.log(encoded); // "WGluIGNow6FvIHRo4bqleSBnaWnhIQ=="
 console.log(decoded); // "Xin chào thế giới!"
@@ -159,11 +159,16 @@ console.log(decoded); // "Xin chào thế giới!"
 const name = urlParams.get('name'); // "JohnDoe"
 const time = urlParams.get('time'); 
 const date = urlParams.get('date'); 
+const xungho = urlParams.get('xungho'); 
+const vaive = urlParams.get('vaive'); 
+
 	const invitationInfo = {
 		'templateID': 'h2',
 		'guest_name': (name === '' || name === null)  ? 'Bạn và gia đình' : decodeBase64ToUnicode(name),
 		'time': (time === '' || time === null)  ? '17h30' : decodeBase64ToUnicode(time),
 		'date': (date === '' || date === null)  ? 'Thứ 5, ngày 7/5/2025' : decodeBase64ToUnicode(date),
+		'xungho': (xungho === '' || xungho === null)  ? 'chúng tôi' : decodeBase64ToUnicode(xungho),
+		'vaive': (vaive === '' || vaive === null)  ? 'quý khách' : decodeBase64ToUnicode(vaive),
 	};
 	const biicore = {webroot : 'https://weddinghappy95.iwedding.info', coreSite: 'https://biihappy.com', webToken: '661c235b3eb144244807bbd0'};
 </script>
