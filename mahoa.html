@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm cột Base64 và Tải CSV</title>
+</head>
+<body>
+  <h2>Chọn file CSV</h2>
+  <input type="file" id="csvFile" accept=".csv" />
+  <button onclick="handleCSV()">Xử lý và Tải xuống</button>
+
+  <script>
+    function encodeUnicodeToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function handleCSV() {
+      const fileInput = document.getElementById('csvFile');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Vui lòng chọn file CSV!");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const lines = e.target.result.trim().split(/\r?\n/);
+        const header = lines[0].trim();
+        const dataLines = lines.slice(1);
+
+        const newLines = [header + ",Base64"];
+
+        for (let line of dataLines) {
+          const name = line.trim();
+          if (name) {
+            const encoded = encodeUnicodeToBase64(name);
+            newLines.push(`${name},${encoded}`);
+          }
+        }
+
+        const newCsvContent = newLines.join('\n');
+        downloadCSV(newCsvContent, 'encoded_names.csv');
+      };
+
+      reader.readAsText(file);
+    }
+
+    function downloadCSV(content, fileName) {
+      const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", fileName);
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
