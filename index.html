@@ -54,9 +54,7 @@
 		<div class="modal-body">
 			 <form id="updateGuestForm" method="post">
 				<div class="row">
-					<input type="hidden" id="event_id" name="event_id" value="661c235b3eb144244807bbce" >
-					<input type="hidden" id="guest_id" name="guest_id" value="661cd02152a28ec3a0074131" >
-											<div class="col-sm-6 col-12" style="margin-bottom: 10px;">
+						<div class="col-sm-6 col-12" style="margin-bottom: 10px;">
 							<select class="form-select" name="attendance_status" id="attendance_status_id" style="margin-top: 4px;">
 								<option value="">Bạn sẽ tham gia chứ?</option>
 																	<option value="0" >Chưa xác định trước được</option>
@@ -64,20 +62,25 @@
 																	<option value="2" >Tôi không Tham gia được</option>
 															</select>
 						</div>
-											<div class="col-sm-6 col-12" style="margin-bottom: 10px;">
-							<select class="form-select" name="attendance_status" id="plus_ones_id" style="margin-top: 4px;">
-								<option value="">Bạn có người đi cùng không?</option>
-																	<option value="0" >Đi một mình</option>
-																	<option value="1" >Đi cùng 1 người</option>
-																	<option value="2" >Đi cùng 2 người</option>
-																	<option value="3" >Đi cùng 3 người</option>
-																	<option value="4" >Đi cùng 4 người</option>
-																	<option value="5" >Đi cùng 5 người</option>
-															</select>
-						</div>
-										
-					<div class="row-guest-questions">
-											</div>
+						<div class="col-12" style="margin-bottom: 10px;">
+							<textarea
+							  name="message"
+							  id="message"
+							  class="form-control vs-attendance-message"
+							  rows="4"
+							  placeholder="Nhập lời chúc đến cô dâu/chú rể..."
+							  style="
+								width: 100%;
+								border-radius: 10px;
+								padding: 12px 16px;
+								font-size: 15px;
+								font-family: 'Playfair Display', serif;
+								resize: none;
+								border: 1px solid #ccc;
+								box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+							  "></textarea>
+						  </div>
+						
 				</div>
 				<div class="message-success" style="display: none;">
 					<div class="form-message form-message-success">
@@ -165,12 +168,53 @@ const vaive = urlParams.get('vaive');
 	const invitationInfo = {
 		'templateID': 'h2',
 		'guest_name': (name === '' || name === null)  ? 'Bạn và gia đình' : decodeBase64ToUnicode(name),
-		'time': (time === '' || time === null)  ? '17h30' : decodeBase64ToUnicode(time),
-		'date': (date === '' || date === null)  ? 'Thứ 5, ngày 7/5/2025' : decodeBase64ToUnicode(date),
+		'time': (time === '' || time === null)  ? '10h30' : decodeBase64ToUnicode(time),
+		'date': (date === '' || date === null)  ? 'Thứ 5, ngày 8/5/2025' : decodeBase64ToUnicode(date),
 		'xungho': (xungho === '' || xungho === null)  ? 'chúng tôi' : decodeBase64ToUnicode(xungho),
 		'vaive': (vaive === '' || vaive === null)  ? 'quý khách' : decodeBase64ToUnicode(vaive),
 	};
 	const biicore = {webroot : 'https://weddinghappy95.iwedding.info', coreSite: 'https://biihappy.com', webToken: '661c235b3eb144244807bbd0'};
+
+	document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('updateGuestForm');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Ngăn trình duyệt submit mặc định
+
+      // Tạo FormData từ form
+      const formData = new FormData(form);
+
+	  console.log($('#attendance_status_id'));
+	  console.log($('#message'));
+	  const data = {
+                    name: (name === '' || name === null)  ? 'Bạn và gia đình' : decodeBase64ToUnicode(name),
+                    phone: '0359544034',
+                    attend: $('#attendance_status_id') === 1 ? 'Có': 'Không',
+                    guest_of: 'Nhà Trai',
+                    guest: '1',
+                    message: $('#message').val()
+                };
+                console.log(JSON.stringify(data));
+                $('#loading').show();
+                $.ajax({
+                    url: 'https://sandboxlending.vnptmedia.vn/topi/vam/register', // Thay thế bằng URL Webhook của bạn
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+						document.querySelector('.message-success').style.display = 'block';
+						document.querySelector('.message-error').style.display = 'none';
+                    },
+                    error: function(xhr, status, error) {
+                        $('#loading').hide();
+                        console.error('Lỗi:', error);
+						document.querySelector('.message-success').style.display = 'block';
+						document.querySelector('.message-error').style.display = 'none';
+                    }
+                });
+    });
+  });
+
 </script>
 <script type="text/javascript" src="invitation/scriptdd56.js?v=20240623"></script>
 <script type="text/javascript" src="invitation/templates/h3/staticdd56.js"></script>
