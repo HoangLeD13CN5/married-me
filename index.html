@@ -202,14 +202,12 @@ const vaive = urlParams.get('vaive');
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function(response) {
-						document.querySelector('.message-success').style.display = 'block';
-						document.querySelector('.message-error').style.display = 'none';
+						document.getElementById('rsvpModal').style.display = 'none';
+						alert('Cám ơn bạn đã dành chút thời gian để nói cho chúng mình biết ý định của bạn. Rất hân hạnh được đón tiếp bạn tại bữa tiệc!');
                     },
                     error: function(xhr, status, error) {
-                        $('#loading').hide();
-                        console.error('Lỗi:', error);
-						document.querySelector('.message-success').style.display = 'block';
-						document.querySelector('.message-error').style.display = 'none';
+                        document.getElementById('rsvpModal').style.display = 'none';
+						alert('Cám ơn bạn đã dành chút thời gian để nói cho chúng mình biết ý định của bạn. Rất hân hạnh được đón tiếp bạn tại bữa tiệc!');
                     }
                 });
     });
