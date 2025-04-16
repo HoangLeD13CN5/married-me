@@ -186,6 +186,7 @@ const vaive = urlParams.get('vaive');
 
 	  console.log($('#attendance_status_id'));
 	  console.log($('#message'));
+	  document.getElementById('rsvpModal').style.display = 'none'; // Đóng form ngay lập tức
 	  const data = {
                     name: (name === '' || name === null)  ? 'Bạn và gia đình' : decodeBase64ToUnicode(name),
                     phone: '0359544034',
@@ -202,11 +203,9 @@ const vaive = urlParams.get('vaive');
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function(response) {
-						document.getElementById('rsvpModal').style.display = 'none';
 						alert('Cám ơn bạn đã dành chút thời gian để nói cho chúng mình biết ý định của bạn. Rất hân hạnh được đón tiếp bạn tại bữa tiệc!');
                     },
                     error: function(xhr, status, error) {
-                        document.getElementById('rsvpModal').style.display = 'none';
 						alert('Cám ơn bạn đã dành chút thời gian để nói cho chúng mình biết ý định của bạn. Rất hân hạnh được đón tiếp bạn tại bữa tiệc!');
                     }
                 });
